@@ -2,7 +2,7 @@ from flask import Flask ,render_template, session, redirect, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
