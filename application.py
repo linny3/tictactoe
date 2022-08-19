@@ -16,7 +16,6 @@ Session(app)
 
 moves = []
 
-
 @app.route("/")
 def index():
     # if board doesnt exist
@@ -56,7 +55,6 @@ def reset():
     moves.clear()
     # return to index
     return redirect(url_for("index"))
-
 
 
 # Check to see if anyone has won the game yet
@@ -244,7 +242,6 @@ def computer():
         play(0,0)
         return redirect(url_for("index")) 
 
-
     # loop through board
     for i in range(3):
         for j in range(3):
@@ -269,7 +266,6 @@ def computer():
                 game[i][j] = None
 
                 
-                          
                 # if X's turn return the highest valued move
                 if turn == "X":
                     # if current move value is greater than bestVal 
