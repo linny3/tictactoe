@@ -2,9 +2,31 @@
 <html>
     <head>
         <title>Tic Tac Toe</title>
+        <h1>Tic Tac Toe</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div>
+                    {% for message in get_flashed_messages() %}
+                    <p class="flash">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
         <style>
+            body {
+                text-align: center;
+            }
+            
+            h1 {
+                font-family: sans-serif;
+                font-weight: bold;
+            }
+
+
             table {
                 border-collapse: collapse;
+                margin-left: auto;
+                margin-right: auto;
             }
             td {
                 border: 1px solid black;
@@ -17,6 +39,16 @@
                 font-size: 18px;
 
             }
+
+            .flash {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            a {
+                font-family: sans-serif;
+            }
+            
         </style>
     </head>
 </html>
@@ -28,13 +60,34 @@
                 <td>
                     {% if game[i][j] %}
                         {{ game[i][j] }}
+                        
                     {% else %}
-                        <a href="{{ url_for('play', row=i, col=j )}}">Play {{ turn }} here</a>
+                    {% if (winner == 1) or (winner == -1) %}
+                            <p></p>
+                    {% else %}
+                            <a href="{{ url_for('play', row=i, col=j )}}">Play {{ turn }} here</a>
+                       {% endif %}
                     {% endif %}
                 </td>
                 {% endfor %}
             </tr>
         {% endfor %}
     </table>
-    <a href="/reset">Reset Game Board</a>
+    <div>
+    
+    {% if move|length >= 1 %}
+    <a href="{{ url_for('computer') }}">Let Computer Make Move</a>
+    <div>
+        <a href="{{ url_for('undo') }}">Undo Move</a>
+    </div>
+    <div>
+        <a href="{{ url_for('reset') }}">Reset Game</a>
+    </div>
+    {% else %}
+    <a href="{{ url_for('computer') }}">Let Computer Make Move</a>
+    <div>
+        <a href="{{ url_for('reset') }}">Reset Game</a>
+    </div>
+    {% endif %}
+  </div>
 </body>
